@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using KooliProjekt.Data;
 
@@ -19,9 +17,13 @@ namespace KooliProjekt.Controllers
         }
 
         // GET: Beers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            return View(await _context.Beers.ToListAsync());
+            // Kasuta GetPagedAsync meetodit
+            var query = _context.Beers.AsQueryable();
+            var pagedData = await query.GetPagedAsync(page, pageSize: 10);
+
+            return View(pagedData);
         }
 
         // GET: Beers/Details/5
@@ -32,8 +34,7 @@ namespace KooliProjekt.Controllers
                 return NotFound();
             }
 
-            var beer = await _context.Beers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var beer = await _context.Beers.FirstOrDefaultAsync(m => m.Id == id);
             if (beer == null)
             {
                 return NotFound();
@@ -49,8 +50,6 @@ namespace KooliProjekt.Controllers
         }
 
         // POST: Beers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,BeerName,BeerDescription")] Beer beer)
@@ -81,8 +80,6 @@ namespace KooliProjekt.Controllers
         }
 
         // POST: Beers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,BeerName,BeerDescription")] Beer beer)
@@ -123,8 +120,7 @@ namespace KooliProjekt.Controllers
                 return NotFound();
             }
 
-            var beer = await _context.Beers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var beer = await _context.Beers.FirstOrDefaultAsync(m => m.Id == id);
             if (beer == null)
             {
                 return NotFound();
