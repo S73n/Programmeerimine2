@@ -1,0 +1,307 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = KooliProjekt
+build_property.RootNamespace = KooliProjekt
+build_property.ProjectDir = C:\Users\50709197064\Source\Repos\Programmeerimine2\KooliProjekt\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\50709197064\Source\Repos\Programmeerimine2\KooliProjekt
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Batches/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmF0Y2hlc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Batches/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmF0Y2hlc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Batches/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmF0Y2hlc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Batches/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmF0Y2hlc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Batches/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmF0Y2hlc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Beers/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmVlcnNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Beers/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmVlcnNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Beers/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmVlcnNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Beers/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmVlcnNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Beers/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmVlcnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Comments/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbWVudHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Comments/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbWVudHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Comments/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbWVudHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Comments/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbWVudHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Comments/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbWVudHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Customers/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Customers/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Customers/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Customers/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Customers/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Ingredients/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ncmVkaWVudHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Ingredients/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ncmVkaWVudHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Ingredients/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ncmVkaWVudHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Ingredients/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ncmVkaWVudHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Ingredients/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ncmVkaWVudHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Invoices/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52b2ljZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Invoices/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52b2ljZXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Invoices/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52b2ljZXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Invoices/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52b2ljZXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Invoices/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52b2ljZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Photos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGhvdG9zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Photos/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGhvdG9zXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Photos/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGhvdG9zXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Photos/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGhvdG9zXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Photos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGhvdG9zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Shared/Components/Pager/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcUGFnZXJcRGVmYXVsdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Shared/_Comments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Db21tZW50cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Shared/_Footer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb290ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Shared/_Header.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9IZWFkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Shared/_SideBar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TaWRlQmFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Shared/_Tabs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9UYWJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Shared/_Tabs_Description.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9UYWJzX0Rlc2NyaXB0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Shared/_Tabs_Information.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9UYWJzX0luZm9ybWF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Shared/_Tabs_Reviews.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9UYWJzX1Jldmlld3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Shared/_TopBar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Ub3BCYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Shared/_TopShoppingCard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Ub3BTaG9wcGluZ0NhcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/TastingLogs/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFzdGluZ0xvZ3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/TastingLogs/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFzdGluZ0xvZ3NcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/TastingLogs/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFzdGluZ0xvZ3NcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/TastingLogs/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFzdGluZ0xvZ3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/TastingLogs/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFzdGluZ0xvZ3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/UserRoles/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclJvbGVzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/UserRoles/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclJvbGVzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/UserRoles/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclJvbGVzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/UserRoles/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclJvbGVzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/UserRoles/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclJvbGVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Users/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Users/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Users/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Users/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Users/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/50709197064/Source/Repos/Programmeerimine2/KooliProjekt/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-a5xg39yqgy
