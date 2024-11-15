@@ -4,6 +4,7 @@ using KooliProjekt.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KooliProjekt.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241108071841_AddTodoListAndTodoItem")]
+    partial class AddTodoListAndTodoItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,9 +182,6 @@ namespace KooliProjekt.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BeerId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("InvoiceId")
                         .HasColumnType("int");
 
@@ -193,11 +193,9 @@ namespace KooliProjekt.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BeerId");
-
                     b.HasIndex("InvoiceId");
 
-                    b.ToTable("InvoiceLines");
+                    b.ToTable("InvoicesLine");
                 });
 
             modelBuilder.Entity("KooliProjekt.Data.Photo", b =>
@@ -242,6 +240,45 @@ namespace KooliProjekt.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TastingLogs");
+                });
+
+            modelBuilder.Entity("KooliProjekt.Data.TodoItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TodoListId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TodoListId");
+
+                    b.ToTable("TodoItems");
+                });
+
+            modelBuilder.Entity("KooliProjekt.Data.TodoList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TodoLists");
                 });
 
             modelBuilder.Entity("KooliProjekt.Data.User", b =>
@@ -512,17 +549,17 @@ namespace KooliProjekt.Data.Migrations
 
             modelBuilder.Entity("KooliProjekt.Data.InvoiceLine", b =>
                 {
-                    b.HasOne("KooliProjekt.Data.Beer", "Beer")
-                        .WithMany()
-                        .HasForeignKey("BeerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("KooliProjekt.Data.Invoice", null)
                         .WithMany("Lines")
                         .HasForeignKey("InvoiceId");
+                });
 
-                    b.Navigation("Beer");
+            modelBuilder.Entity("KooliProjekt.Data.TodoItem", b =>
+                {
+                    b.HasOne("KooliProjekt.Data.TodoList", null)
+                        .WithMany("Items")
+                        .HasForeignKey("TodoListId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -579,6 +616,11 @@ namespace KooliProjekt.Data.Migrations
             modelBuilder.Entity("KooliProjekt.Data.Invoice", b =>
                 {
                     b.Navigation("Lines");
+                });
+
+            modelBuilder.Entity("KooliProjekt.Data.TodoList", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }
