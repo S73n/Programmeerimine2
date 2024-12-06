@@ -1,5 +1,6 @@
 using KooliProjekt.Data;
 using KooliProjekt.Service;
+using KooliProjekt.Data.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +12,6 @@ namespace KooliProjekt
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
@@ -19,14 +19,21 @@ namespace KooliProjekt
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
             builder.Services.AddControllersWithViews();
 
-            // Register BeerService and IBeerService
+            builder.Services.AddScoped<IBeerRepository, BeerRepository>();
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+            builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             builder.Services.AddScoped<IBeerService, BeerService>();
+            builder.Services.AddScoped<ICustomerService, CustomerService>();
+            builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseMigrationsEndPoint();
@@ -56,7 +63,14 @@ namespace KooliProjekt
                 {
                     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                     dbContext.Database.Migrate();
-                    SeedData.Generate(dbContext);
+                    try
+                    {
+                        SeedData.Generate(dbContext);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error seeding data: " + ex.Message);
+                    }
                 }
             }
 

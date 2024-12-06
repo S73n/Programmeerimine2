@@ -1,6 +1,8 @@
-﻿namespace KooliProjekt.Data
+﻿using KooliProjekt.Data.Repositories;
+
+namespace KooliProjekt.Data
 {
-    public class Beer
+    public class Beer : Entity
     {
         public int Id { get; set; }
         public string BeerName { get; set; }
