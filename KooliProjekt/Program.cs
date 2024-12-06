@@ -1,4 +1,5 @@
 using KooliProjekt.Data;
+using KooliProjekt.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,9 @@ namespace KooliProjekt
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
+            // Register BeerService and IBeerService
+            builder.Services.AddScoped<IBeerService, BeerService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -30,7 +34,6 @@ namespace KooliProjekt
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -52,9 +55,7 @@ namespace KooliProjekt
                 using (var scope = app.Services.CreateScope())
                 {
                     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
                     dbContext.Database.Migrate();
-
                     SeedData.Generate(dbContext);
                 }
             }

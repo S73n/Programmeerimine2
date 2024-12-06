@@ -1,28 +1,24 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using KooliProjekt.Data;
+using KooliProjekt.Service;  // Lisage teenuse nimi
 
 namespace KooliProjekt.Controllers
 {
     public class BeersController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IBeerService _beerService;  // Muudame teenuse liidese muutujaks
 
-        public BeersController(ApplicationDbContext context)
+        // Konstruktor, et teenus oleks kontrolleris kasutamiseks
+        public BeersController(IBeerService beerService)
         {
-            _context = context;
+            _beerService = beerService;
         }
 
         // GET: Beers
         public async Task<IActionResult> Index(int page = 1)
         {
-            // Kasuta GetPagedAsync meetodit
-            var query = _context.Beers.AsQueryable();
-            var pagedData = await query.GetPagedAsync(page, pageSize: 10);
-
+            var pagedData = await _beerService.GetBeersAsync(page, 10); // Kasutame teenuse meetodit
             return View(pagedData);
         }
 
@@ -34,7 +30,7 @@ namespace KooliProjekt.Controllers
                 return NotFound();
             }
 
-            var beer = await _context.Beers.FirstOrDefaultAsync(m => m.Id == id);
+            var beer = await _beerService.GetBeerByIdAsync(id.Value);  // Kasutame teenuse meetodit
             if (beer == null)
             {
                 return NotFound();
@@ -56,8 +52,7 @@ namespace KooliProjekt.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(beer);
-                await _context.SaveChangesAsync();
+                await _beerService.CreateBeerAsync(beer);  // Kasutame teenuse meetodit
                 return RedirectToAction(nameof(Index));
             }
             return View(beer);
@@ -71,7 +66,7 @@ namespace KooliProjekt.Controllers
                 return NotFound();
             }
 
-            var beer = await _context.Beers.FindAsync(id);
+            var beer = await _beerService.GetBeerByIdAsync(id.Value);  // Kasutame teenuse meetodit
             if (beer == null)
             {
                 return NotFound();
@@ -93,12 +88,11 @@ namespace KooliProjekt.Controllers
             {
                 try
                 {
-                    _context.Update(beer);
-                    await _context.SaveChangesAsync();
+                    await _beerService.UpdateBeerAsync(beer);  // Kasutame teenuse meetodit
                 }
-                catch (DbUpdateConcurrencyException)
+                catch
                 {
-                    if (!BeerExists(beer.Id))
+                    if (!await _beerService.BeerExistsAsync(beer.Id))  // Kasutame teenuse meetodit
                     {
                         return NotFound();
                     }
@@ -120,7 +114,7 @@ namespace KooliProjekt.Controllers
                 return NotFound();
             }
 
-            var beer = await _context.Beers.FirstOrDefaultAsync(m => m.Id == id);
+            var beer = await _beerService.GetBeerByIdAsync(id.Value);  // Kasutame teenuse meetodit
             if (beer == null)
             {
                 return NotFound();
@@ -134,19 +128,8 @@ namespace KooliProjekt.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var beer = await _context.Beers.FindAsync(id);
-            if (beer != null)
-            {
-                _context.Beers.Remove(beer);
-            }
-
-            await _context.SaveChangesAsync();
+            await _beerService.DeleteBeerAsync(id);  // Kasutame teenuse meetodit
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool BeerExists(int id)
-        {
-            return _context.Beers.Any(e => e.Id == id);
         }
     }
 }
