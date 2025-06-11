@@ -6,22 +6,33 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using KooliProjekt.Data;
+using KooliProjekt.Service;
+using KooliProjekt.Search;
+using KooliProjekt.Models;
 
 namespace KooliProjekt.Controllers
 {
     public class CustomersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ICustomerService _customerService;
 
-        public CustomersController(ApplicationDbContext context)
+        public CustomersController(ApplicationDbContext context, ICustomerService customerService)
         {
             _context = context;
+            _customerService = customerService;
         }
 
         // GET: Customers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(CustomerSearchParameters searchParameters)
         {
-            return View(await _context.Customers.ToListAsync());
+            var model = new CustomersIndexModel
+            {
+                SearchParameters = searchParameters,
+                Customers = await _customerService.GetCustomersAsync(searchParameters),
+                TotalCount = await _customerService.GetTotalCustomersCountAsync(searchParameters)
+            };
+            return View(model);
         }
 
         // GET: Customers/Details/5
@@ -32,8 +43,7 @@ namespace KooliProjekt.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var customer = await _customerService.GetCustomerByIdAsync(id.Value);
             if (customer == null)
             {
                 return NotFound();
@@ -53,12 +63,11 @@ namespace KooliProjekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Name,Email,Phone,Address")] Customer customer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
-                await _context.SaveChangesAsync();
+                await _customerService.CreateCustomerAsync(customer);
                 return RedirectToAction(nameof(Index));
             }
             return View(customer);
@@ -72,7 +81,7 @@ namespace KooliProjekt.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customers.FindAsync(id);
+            var customer = await _customerService.GetCustomerByIdAsync(id.Value);
             if (customer == null)
             {
                 return NotFound();
@@ -85,7 +94,7 @@ namespace KooliProjekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,Phone,Address,RegistrationDate")] Customer customer)
         {
             if (id != customer.Id)
             {
@@ -96,12 +105,11 @@ namespace KooliProjekt.Controllers
             {
                 try
                 {
-                    _context.Update(customer);
-                    await _context.SaveChangesAsync();
+                    await _customerService.UpdateCustomerAsync(customer);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerExists(customer.Id))
+                    if (!await _customerService.CustomerExistsAsync(customer.Id))
                     {
                         return NotFound();
                     }
@@ -123,8 +131,7 @@ namespace KooliProjekt.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var customer = await _customerService.GetCustomerByIdAsync(id.Value);
             if (customer == null)
             {
                 return NotFound();
@@ -138,19 +145,8 @@ namespace KooliProjekt.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer != null)
-            {
-                _context.Customers.Remove(customer);
-            }
-
-            await _context.SaveChangesAsync();
+            await _customerService.DeleteCustomerAsync(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool CustomerExists(int id)
-        {
-            return _context.Customers.Any(e => e.Id == id);
         }
     }
 }

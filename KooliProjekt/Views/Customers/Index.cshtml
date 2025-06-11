@@ -1,35 +1,128 @@
-﻿@model IEnumerable<KooliProjekt.Data.Customer>
+﻿@model KooliProjekt.Models.CustomersIndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Customers</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form asp-action="Index" method="get" class="row g-3">
+            <div class="col-md-4">
+                <label asp-for="SearchParameters.SearchString" class="form-label">Search</label>
+                <input asp-for="SearchParameters.SearchString" class="form-control" placeholder="Search by name, email, phone or address" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="SearchParameters.Name" class="form-label">Name</label>
+                <input asp-for="SearchParameters.Name" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="SearchParameters.Email" class="form-label">Email</label>
+                <input asp-for="SearchParameters.Email" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="SearchParameters.Phone" class="form-label">Phone</label>
+                <input asp-for="SearchParameters.Phone" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="SearchParameters.Address" class="form-label">Address</label>
+                <input asp-for="SearchParameters.Address" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label asp-for="SearchParameters.MinRegistrationDate" class="form-label">Min Registration Date</label>
+                <input asp-for="SearchParameters.MinRegistrationDate" class="form-control" type="date" />
+            </div>
+            <div class="col-md-3">
+                <label asp-for="SearchParameters.MaxRegistrationDate" class="form-label">Max Registration Date</label>
+                <input asp-for="SearchParameters.MaxRegistrationDate" class="form-control" type="date" />
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Search</button>
+                <a asp-action="Index" class="btn btn-secondary">Clear</a>
+            </div>
+        </form>
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                <a asp-action="Index" asp-route-sortColumn="Name" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "Name" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Customers.First().Name)
+                </a>
             </th>
-            <th></th>
+            <th>
+                <a asp-action="Index" asp-route-sortColumn="Email" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "Email" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Customers.First().Email)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortColumn="Phone" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "Phone" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Customers.First().Phone)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortColumn="Address" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "Address" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Customers.First().Address)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortColumn="RegistrationDate" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "RegistrationDate" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Customers.First().RegistrationDate)
+                </a>
+            </th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Customers)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                <td>@Html.DisplayFor(modelItem => item.RegistrationDate)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<div class="d-flex justify-content-between align-items-center">
+    <div>
+        Showing @(((Model.SearchParameters.PageNumber - 1) * Model.SearchParameters.PageSize) + 1) to 
+        @(Math.Min(Model.SearchParameters.PageNumber * Model.SearchParameters.PageSize, Model.TotalCount)) 
+        of @Model.TotalCount entries
+    </div>
+    <nav>
+        <ul class="pagination">
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.SearchParameters.PageNumber ? "active" : "")">
+                    <a class="page-link" asp-action="Index"
+                       asp-route-pageNumber="@i"
+                       asp-route-searchString="@Model.SearchParameters.SearchString"
+                       asp-route-name="@Model.SearchParameters.Name"
+                       asp-route-email="@Model.SearchParameters.Email"
+                       asp-route-phone="@Model.SearchParameters.Phone"
+                       asp-route-address="@Model.SearchParameters.Address"
+                       asp-route-minRegistrationDate="@Model.SearchParameters.MinRegistrationDate?.ToString("yyyy-MM-dd")"
+                       asp-route-maxRegistrationDate="@Model.SearchParameters.MaxRegistrationDate?.ToString("yyyy-MM-dd")"
+                       asp-route-sortColumn="@Model.SearchParameters.SortColumn"
+                       asp-route-sortOrder="@Model.SearchParameters.SortOrder">@i</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>

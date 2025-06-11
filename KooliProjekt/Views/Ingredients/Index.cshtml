@@ -1,59 +1,133 @@
-﻿@model IEnumerable<KooliProjekt.Data.Ingredient>
+﻿@model KooliProjekt.Models.IngredientsIndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Ingredients</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form asp-action="Index" method="get" class="row g-3">
+            <div class="col-md-4">
+                <label asp-for="SearchParameters.SearchString" class="form-label">Search</label>
+                <input asp-for="SearchParameters.SearchString" class="form-control" placeholder="Search by name or description" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="SearchParameters.Name" class="form-label">Name</label>
+                <input asp-for="SearchParameters.Name" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="SearchParameters.Type" class="form-label">Type</label>
+                <input asp-for="SearchParameters.Type" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label asp-for="SearchParameters.MinQuantity" class="form-label">Min Quantity</label>
+                <input asp-for="SearchParameters.MinQuantity" class="form-control" type="number" step="0.1" />
+            </div>
+            <div class="col-md-3">
+                <label asp-for="SearchParameters.MaxQuantity" class="form-label">Max Quantity</label>
+                <input asp-for="SearchParameters.MaxQuantity" class="form-control" type="number" step="0.1" />
+            </div>
+            <div class="col-md-3">
+                <label asp-for="SearchParameters.Unit" class="form-label">Unit</label>
+                <input asp-for="SearchParameters.Unit" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label asp-for="SearchParameters.MinPrice" class="form-label">Min Price</label>
+                <input asp-for="SearchParameters.MinPrice" class="form-control" type="number" step="0.01" />
+            </div>
+            <div class="col-md-3">
+                <label asp-for="SearchParameters.MaxPrice" class="form-label">Max Price</label>
+                <input asp-for="SearchParameters.MaxPrice" class="form-control" type="number" step="0.01" />
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Search</button>
+                <a asp-action="Index" class="btn btn-secondary">Clear</a>
+            </div>
+        </form>
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IngredientName)
+                <a asp-action="Index" asp-route-sortColumn="Name" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "Name" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Ingredients.First().Name)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Unit)
+                <a asp-action="Index" asp-route-sortColumn="Type" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "Type" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Ingredients.First().Type)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UnitPrice)
+                <a asp-action="Index" asp-route-sortColumn="Quantity" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "Quantity" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Ingredients.First().Quantity)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QuantityUsed)
+                <a asp-action="Index" asp-route-sortColumn="Unit" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "Unit" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Ingredients.First().Unit)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TotalCost)
+                <a asp-action="Index" asp-route-sortColumn="Price" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "Price" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Ingredients.First().Price)
+                </a>
             </th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IngredientName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Unit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnitPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QuantityUsed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalCost)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Ingredients)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Type)</td>
+                <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+                <td>@Html.DisplayFor(modelItem => item.Unit)</td>
+                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<div class="d-flex justify-content-between align-items-center">
+    <div>
+        Showing @(((Model.SearchParameters.PageNumber - 1) * Model.SearchParameters.PageSize) + 1) to 
+        @(Math.Min(Model.SearchParameters.PageNumber * Model.SearchParameters.PageSize, Model.TotalCount)) 
+        of @Model.TotalCount entries
+    </div>
+    <nav>
+        <ul class="pagination">
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.SearchParameters.PageNumber ? "active" : "")">
+                    <a class="page-link" asp-action="Index"
+                       asp-route-pageNumber="@i"
+                       asp-route-searchString="@Model.SearchParameters.SearchString"
+                       asp-route-name="@Model.SearchParameters.Name"
+                       asp-route-type="@Model.SearchParameters.Type"
+                       asp-route-minQuantity="@Model.SearchParameters.MinQuantity"
+                       asp-route-maxQuantity="@Model.SearchParameters.MaxQuantity"
+                       asp-route-unit="@Model.SearchParameters.Unit"
+                       asp-route-minPrice="@Model.SearchParameters.MinPrice"
+                       asp-route-maxPrice="@Model.SearchParameters.MaxPrice"
+                       asp-route-sortColumn="@Model.SearchParameters.SortColumn"
+                       asp-route-sortOrder="@Model.SearchParameters.SortOrder">@i</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>

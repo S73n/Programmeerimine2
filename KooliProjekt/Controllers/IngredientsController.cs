@@ -6,22 +6,33 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using KooliProjekt.Data;
+using KooliProjekt.Service;
+using KooliProjekt.Search;
+using KooliProjekt.Models;
 
 namespace KooliProjekt.Controllers
 {
     public class IngredientsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IIngredientService _ingredientService;
 
-        public IngredientsController(ApplicationDbContext context)
+        public IngredientsController(ApplicationDbContext context, IIngredientService ingredientService)
         {
             _context = context;
+            _ingredientService = ingredientService;
         }
 
         // GET: Ingredients
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(IngredientSearchParameters searchParameters)
         {
-            return View(await _context.Ingredients.ToListAsync());
+            var model = new IngredientsIndexModel
+            {
+                SearchParameters = searchParameters,
+                Ingredients = await _ingredientService.GetIngredientsAsync(searchParameters),
+                TotalCount = await _ingredientService.GetTotalIngredientsCountAsync(searchParameters)
+            };
+            return View(model);
         }
 
         // GET: Ingredients/Details/5
@@ -53,7 +64,7 @@ namespace KooliProjekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IngredientName,Unit,UnitPrice,QuantityUsed,TotalCost")] Ingredient ingredient)
+        public async Task<IActionResult> Create([Bind("Id,Name,Unit,Price,Quantity,TotalCost")] Ingredient ingredient)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +96,7 @@ namespace KooliProjekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,IngredientName,Unit,UnitPrice,QuantityUsed,TotalCost")] Ingredient ingredient)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Unit,Price,Quantity,TotalCost")] Ingredient ingredient)
         {
             if (id != ingredient.Id)
             {

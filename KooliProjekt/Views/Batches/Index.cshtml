@@ -1,53 +1,144 @@
-﻿@model IEnumerable<KooliProjekt.Data.Batch>
+﻿@model KooliProjekt.Models.BatchesIndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Batches</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form asp-action="Index" method="get" class="row g-3">
+            <div class="col-md-4">
+                <label asp-for="SearchParameters.SearchString" class="form-label">Search</label>
+                <input asp-for="SearchParameters.SearchString" class="form-control" placeholder="Search by batch number or notes" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="SearchParameters.BatchNumber" class="form-label">Batch Number</label>
+                <input asp-for="SearchParameters.BatchNumber" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="SearchParameters.Status" class="form-label">Status</label>
+                <input asp-for="SearchParameters.Status" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label asp-for="SearchParameters.MinStartDate" class="form-label">Min Start Date</label>
+                <input asp-for="SearchParameters.MinStartDate" class="form-control" type="date" />
+            </div>
+            <div class="col-md-3">
+                <label asp-for="SearchParameters.MaxStartDate" class="form-label">Max Start Date</label>
+                <input asp-for="SearchParameters.MaxStartDate" class="form-control" type="date" />
+            </div>
+            <div class="col-md-3">
+                <label asp-for="SearchParameters.MinEndDate" class="form-label">Min End Date</label>
+                <input asp-for="SearchParameters.MinEndDate" class="form-control" type="date" />
+            </div>
+            <div class="col-md-3">
+                <label asp-for="SearchParameters.MaxEndDate" class="form-label">Max End Date</label>
+                <input asp-for="SearchParameters.MaxEndDate" class="form-control" type="date" />
+            </div>
+            <div class="col-md-3">
+                <label asp-for="SearchParameters.MinVolume" class="form-label">Min Volume</label>
+                <input asp-for="SearchParameters.MinVolume" class="form-control" type="number" step="0.1" />
+            </div>
+            <div class="col-md-3">
+                <label asp-for="SearchParameters.MaxVolume" class="form-label">Max Volume</label>
+                <input asp-for="SearchParameters.MaxVolume" class="form-control" type="number" step="0.1" />
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Search</button>
+                <a asp-action="Index" class="btn btn-secondary">Clear</a>
+            </div>
+        </form>
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.BatchDate)
+                <a asp-action="Index" asp-route-sortColumn="BatchNumber" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "BatchNumber" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Batches.First().BatchNumber)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BatchCode)
+                <a asp-action="Index" asp-route-sortColumn="BeerId" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "BeerId" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Batches.First().Beer)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BatchDescription)
+                <a asp-action="Index" asp-route-sortColumn="StartDate" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "StartDate" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Batches.First().StartDate)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Summary)
+                <a asp-action="Index" asp-route-sortColumn="EndDate" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "EndDate" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Batches.First().EndDate)
+                </a>
             </th>
-            <th></th>
+            <th>
+                <a asp-action="Index" asp-route-sortColumn="Volume" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "Volume" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Batches.First().Volume)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortColumn="Status" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "Status" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Batches.First().Status)
+                </a>
+            </th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BatchDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BatchCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BatchDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Summary)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Batches)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.BatchNumber)</td>
+                <td>@Html.DisplayFor(modelItem => item.Beer.BeerName)</td>
+                <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.Volume)</td>
+                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<div class="d-flex justify-content-between align-items-center">
+    <div>
+        Showing @(((Model.SearchParameters.PageNumber - 1) * Model.SearchParameters.PageSize) + 1) to 
+        @(Math.Min(Model.SearchParameters.PageNumber * Model.SearchParameters.PageSize, Model.TotalCount)) 
+        of @Model.TotalCount entries
+    </div>
+    <nav>
+        <ul class="pagination">
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.SearchParameters.PageNumber ? "active" : "")">
+                    <a class="page-link" asp-action="Index"
+                       asp-route-pageNumber="@i"
+                       asp-route-searchString="@Model.SearchParameters.SearchString"
+                       asp-route-batchNumber="@Model.SearchParameters.BatchNumber"
+                       asp-route-status="@Model.SearchParameters.Status"
+                       asp-route-minStartDate="@Model.SearchParameters.MinStartDate?.ToString("yyyy-MM-dd")"
+                       asp-route-maxStartDate="@Model.SearchParameters.MaxStartDate?.ToString("yyyy-MM-dd")"
+                       asp-route-minEndDate="@Model.SearchParameters.MinEndDate?.ToString("yyyy-MM-dd")"
+                       asp-route-maxEndDate="@Model.SearchParameters.MaxEndDate?.ToString("yyyy-MM-dd")"
+                       asp-route-minVolume="@Model.SearchParameters.MinVolume"
+                       asp-route-maxVolume="@Model.SearchParameters.MaxVolume"
+                       asp-route-sortColumn="@Model.SearchParameters.SortColumn"
+                       asp-route-sortOrder="@Model.SearchParameters.SortOrder">@i</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>

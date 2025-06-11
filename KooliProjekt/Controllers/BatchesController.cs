@@ -6,22 +6,33 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using KooliProjekt.Data;
+using KooliProjekt.Service;
+using KooliProjekt.Search;
+using KooliProjekt.Models;
 
 namespace KooliProjekt.Controllers
 {
     public class BatchesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IBatchService _batchService;
 
-        public BatchesController(ApplicationDbContext context)
+        public BatchesController(ApplicationDbContext context, IBatchService batchService)
         {
             _context = context;
+            _batchService = batchService;
         }
 
         // GET: Batches
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(BatchSearchParameters searchParameters)
         {
-            return View(await _context.Batches.ToListAsync());
+            var model = new BatchesIndexModel
+            {
+                SearchParameters = searchParameters,
+                Batches = await _batchService.GetBatchesAsync(searchParameters),
+                TotalCount = await _batchService.GetTotalBatchesCountAsync(searchParameters)
+            };
+            return View(model);
         }
 
         // GET: Batches/Details/5

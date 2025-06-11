@@ -38,22 +38,22 @@ namespace KooliProjekt.Data
             {
                 new Invoice
                 {
-                    InvoiceNo = "INV001",
-                    InvoiceDate = DateTime.Now,
+                    InvoiceNumber = "INV001",
+                    IssueDate = DateTime.Now,
                     DueDate = DateTime.Now.AddDays(30),
                     CustomerId = 1
                 },
                 new Invoice
                 {
-                    InvoiceNo = "INV002",
-                    InvoiceDate = DateTime.Now,
+                    InvoiceNumber = "INV002",
+                    IssueDate = DateTime.Now,
                     DueDate = DateTime.Now.AddDays(30),
                     CustomerId = 2
                 },
                 new Invoice
                 {
-                    InvoiceNo = "INV003",
-                    InvoiceDate = DateTime.Now,
+                    InvoiceNumber = "INV003",
+                    IssueDate = DateTime.Now,
                     DueDate = DateTime.Now.AddDays(30),
                     CustomerId = 3
                 }

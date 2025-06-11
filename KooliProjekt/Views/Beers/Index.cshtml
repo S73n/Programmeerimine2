@@ -1,4 +1,4 @@
-﻿@model PagedResult<KooliProjekt.Data.Beer>
+﻿@model KooliProjekt.Models.BeersIndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -7,39 +7,116 @@
 <h1>Beers</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form asp-action="Index" method="get" class="row g-3">
+            <div class="col-md-4">
+                <label asp-for="SearchParameters.SearchString" class="form-label">Search</label>
+                <input asp-for="SearchParameters.SearchString" class="form-control" placeholder="Search by name or description" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="SearchParameters.Name" class="form-label">Name</label>
+                <input asp-for="SearchParameters.Name" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="SearchParameters.Style" class="form-label">Style</label>
+                <input asp-for="SearchParameters.Style" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label asp-for="SearchParameters.MinAlcoholContent" class="form-label">Min Alcohol %</label>
+                <input asp-for="SearchParameters.MinAlcoholContent" class="form-control" type="number" step="0.1" />
+            </div>
+            <div class="col-md-3">
+                <label asp-for="SearchParameters.MaxAlcoholContent" class="form-label">Max Alcohol %</label>
+                <input asp-for="SearchParameters.MaxAlcoholContent" class="form-control" type="number" step="0.1" />
+            </div>
+            <div class="col-md-3">
+                <label asp-for="SearchParameters.MinBrewDate" class="form-label">Min Brew Date</label>
+                <input asp-for="SearchParameters.MinBrewDate" class="form-control" type="date" />
+            </div>
+            <div class="col-md-3">
+                <label asp-for="SearchParameters.MaxBrewDate" class="form-label">Max Brew Date</label>
+                <input asp-for="SearchParameters.MaxBrewDate" class="form-control" type="date" />
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Search</button>
+                <a asp-action="Index" class="btn btn-secondary">Clear</a>
+            </div>
+        </form>
+    </div>
+</div>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                BeerName
+                <a asp-action="Index" asp-route-sortColumn="BeerName" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "BeerName" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Beers.First().BeerName)
+                </a>
             </th>
             <th>
-                BeerDescription
+                <a asp-action="Index" asp-route-sortColumn="Style" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "Style" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Beers.First().Style)
+                </a>
             </th>
-            <th></th>
+            <th>
+                <a asp-action="Index" asp-route-sortColumn="AlcoholContent" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "AlcoholContent" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Beers.First().AlcoholContent)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortColumn="BrewDate" asp-route-sortOrder="@(Model.SearchParameters.SortColumn == "BrewDate" && Model.SearchParameters.SortOrder == "asc" ? "desc" : "asc")">
+                    @Html.DisplayNameFor(model => model.Beers.First().BrewDate)
+                </a>
+            </th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Results)
+        @foreach (var item in Model.Beers)
         {
             <tr>
+                <td>@Html.DisplayFor(modelItem => item.BeerName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Style)</td>
+                <td>@Html.DisplayFor(modelItem => item.AlcoholContent)%</td>
+                <td>@Html.DisplayFor(modelItem => item.BrewDate)</td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BeerName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BeerDescription)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-@(await Component.InvokeAsync<PagerViewComponent>(Model))
+<div class="d-flex justify-content-between align-items-center">
+    <div>
+        Showing @(((Model.SearchParameters.PageNumber - 1) * Model.SearchParameters.PageSize) + 1) to 
+        @(Math.Min(Model.SearchParameters.PageNumber * Model.SearchParameters.PageSize, Model.TotalCount)) 
+        of @Model.TotalCount entries
+    </div>
+    <nav>
+        <ul class="pagination">
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.SearchParameters.PageNumber ? "active" : "")">
+                    <a class="page-link" asp-action="Index"
+                       asp-route-pageNumber="@i"
+                       asp-route-searchString="@Model.SearchParameters.SearchString"
+                       asp-route-name="@Model.SearchParameters.Name"
+                       asp-route-style="@Model.SearchParameters.Style"
+                       asp-route-minAlcoholContent="@Model.SearchParameters.MinAlcoholContent"
+                       asp-route-maxAlcoholContent="@Model.SearchParameters.MaxAlcoholContent"
+                       asp-route-minBrewDate="@Model.SearchParameters.MinBrewDate?.ToString("yyyy-MM-dd")"
+                       asp-route-maxBrewDate="@Model.SearchParameters.MaxBrewDate?.ToString("yyyy-MM-dd")"
+                       asp-route-sortColumn="@Model.SearchParameters.SortColumn"
+                       asp-route-sortOrder="@Model.SearchParameters.SortOrder">@i</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>

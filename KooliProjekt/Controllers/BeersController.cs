@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using KooliProjekt.Data;
 using KooliProjekt.Service;  // Lisage teenuse nimi
+using KooliProjekt.Search;
+using KooliProjekt.Models;
 
 namespace KooliProjekt.Controllers
 {
@@ -16,10 +18,15 @@ namespace KooliProjekt.Controllers
         }
 
         // GET: Beers
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(BeerSearchParameters searchParameters)
         {
-            var pagedData = await _beerService.GetBeersAsync(page, 10); // Kasutame teenuse meetodit
-            return View(pagedData);
+            var model = new BeersIndexModel
+            {
+                SearchParameters = searchParameters,
+                Beers = await _beerService.GetBeersAsync(searchParameters),
+                TotalCount = await _beerService.GetTotalBeersCountAsync(searchParameters)
+            };
+            return View(model);
         }
 
         // GET: Beers/Details/5

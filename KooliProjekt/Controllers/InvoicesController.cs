@@ -6,23 +6,33 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using KooliProjekt.Data;
+using KooliProjekt.Service;
+using KooliProjekt.Search;
+using KooliProjekt.Models;
 
 namespace KooliProjekt.Controllers
 {
     public class InvoicesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IInvoiceService _invoiceService;
 
-        public InvoicesController(ApplicationDbContext context)
+        public InvoicesController(ApplicationDbContext context, IInvoiceService invoiceService)
         {
             _context = context;
+            _invoiceService = invoiceService;
         }
 
         // GET: Invoices
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(InvoiceSearchParameters searchParameters)
         {
-            var applicationDbContext = _context.Invoices.Include(i => i.Customer);
-            return View(await applicationDbContext.ToListAsync());
+            var model = new InvoicesIndexModel
+            {
+                SearchParameters = searchParameters,
+                Invoices = await _invoiceService.GetInvoicesAsync(searchParameters),
+                TotalCount = await _invoiceService.GetTotalInvoicesCountAsync(searchParameters)
+            };
+            return View(model);
         }
 
         // GET: Invoices/Details/5
@@ -56,7 +66,7 @@ namespace KooliProjekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,InvoiceNo,InvoiceDate,DueDate,CustomerId")] Invoice invoice)
+        public async Task<IActionResult> Create([Bind("Id,InvoiceNumber,IssueDate,DueDate,CustomerId")] Invoice invoice)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +100,7 @@ namespace KooliProjekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,InvoiceNo,InvoiceDate,DueDate,CustomerId")] Invoice invoice)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,InvoiceNumber,IssueDate,DueDate,CustomerId")] Invoice invoice)
         {
             if (id != invoice.Id)
             {

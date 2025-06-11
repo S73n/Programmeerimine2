@@ -1,5 +1,7 @@
-﻿using KooliProjekt.Data.Repositories;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using KooliProjekt.Data.Repositories;
 
 namespace KooliProjekt.Data
 {
@@ -9,22 +11,29 @@ namespace KooliProjekt.Data
 
         [Required]
         [StringLength(25)]
-        public string InvoiceNo { get; set; }
+        public string InvoiceNumber { get; set; }
 
         [Required]
-        public DateTime InvoiceDate { get; set; }
+        public DateTime IssueDate { get; set; }
 
         [Required]
         public DateTime DueDate { get; set; }
 
         [Required]
-        public Customer Customer { get; set; }
         public int CustomerId { get; set; }
-        public IList<InvoiceLine> Lines { get; set; }
+        public Customer Customer { get; set; }
 
-        public Invoice()
-        {
-            Lines = new List<InvoiceLine>();
-        }
+        [Required]
+        [Range(0, double.MaxValue)]
+        public decimal TotalAmount { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        public string Status { get; set; }
+
+        public int? OrderId { get; set; }
+        public Order Order { get; set; }
+
+        public ICollection<InvoiceLine> Lines { get; set; } = new List<InvoiceLine>();
     }
 }
