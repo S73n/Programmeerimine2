@@ -44,6 +44,8 @@ namespace KooliProjekt
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUserRoleService, UserRoleService>();
 
+            builder.Services.AddCors();
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
@@ -58,6 +60,11 @@ namespace KooliProjekt
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseCors(options => options
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseRouting();
 

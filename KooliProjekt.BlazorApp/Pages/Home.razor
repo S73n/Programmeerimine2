@@ -1,0 +1,45 @@
+﻿@page "/"
+@using KooliProjekt.PublicAPI
+@inject IApiClient ApiClient
+
+<PageTitle>Home</PageTitle>
+
+<h1>Õlled</h1>
+
+@if (beers == null)
+{
+    <p>Laen andmeid...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nimi</th>
+                <th>Stiil</th>
+                <th>Alkoholisisaldus</th>
+                <th>Valmistamise kuupäev</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var beer in beers)
+            {
+                <tr>
+                    <td>@beer.BeerName</td>
+                    <td>@beer.Style</td>
+                    <td>@beer.AlcoholContent%</td>
+                    <td>@beer.BrewDate.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<Beer> beers;
+
+    protected override async Task OnInitializedAsync()
+    {
+        beers = await ApiClient.GetBeersAsync();
+    }
+}
