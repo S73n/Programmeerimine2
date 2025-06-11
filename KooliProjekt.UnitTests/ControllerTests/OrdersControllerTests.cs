@@ -5,42 +5,25 @@ using KooliProjekt.Search;
 using KooliProjekt.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 using Microsoft.EntityFrameworkCore;
 
 namespace KooliProjekt.UnitTests.ControllerTests
 {
-    public class BatchesControllerTests
+    public class OrdersControllerTests
     {
-        private readonly Mock<IBatchService> _batchServiceMock = new Mock<IBatchService>();
+        private readonly Mock<IOrderService> _orderServiceMock = new Mock<IOrderService>();
         private readonly ApplicationDbContext _dbContext;
-        private readonly BatchesController _controller;
+        private readonly OrdersController _controller;
 
-        public BatchesControllerTests()
+        public OrdersControllerTests()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: System.Guid.NewGuid().ToString())
                 .Options;
             _dbContext = new ApplicationDbContext(options);
-            _controller = new BatchesController(_dbContext, _batchServiceMock.Object);
-        }
-
-        [Fact]
-        public async Task Index_should_return_index_view()
-        {
-            var mockService = new Mock<IBatchService>();
-            mockService.Setup(s => s.GetBatchesAsync(It.IsAny<BatchSearchParameters>())).ReturnsAsync(new List<Batch>());
-            mockService.Setup(s => s.GetTotalBatchesCountAsync(It.IsAny<BatchSearchParameters>())).ReturnsAsync(0);
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: System.Guid.NewGuid().ToString())
-                .Options;
-            var dbContext = new ApplicationDbContext(options);
-            var controller = new BatchesController(dbContext, mockService.Object);
-            var result = await controller.Index(new BatchSearchParameters()) as ViewResult;
-            Assert.NotNull(result);
-            Assert.True(result.ViewName == "Index" || string.IsNullOrEmpty(result.ViewName));
+            _controller = new OrdersController(_dbContext, _orderServiceMock.Object);
         }
 
         [Fact]
@@ -60,34 +43,31 @@ namespace KooliProjekt.UnitTests.ControllerTests
         }
 
         [Fact]
-        public async Task Details_should_return_notfound_when_batch_is_missing()
+        public async Task Details_should_return_notfound_when_order_is_missing()
         {
             int id = 1;
-            _batchServiceMock.Setup(x => x.GetBatchByIdAsync(id)).ReturnsAsync((Batch)null);
+            _orderServiceMock.Setup(x => x.GetOrderByIdAsync(id)).ReturnsAsync((Order)null);
             var result = await _controller.Details(id) as NotFoundResult;
             Assert.NotNull(result);
         }
 
         [Fact]
-        public async Task Details_should_return_view_with_model_when_batch_found()
+        public async Task Details_should_return_view_with_model_when_order_found()
         {
             int id = 1;
-            var batch = new Batch {
+            var order = new Order {
                 Id = id,
-                BatchCode = "B1",
-                BatchDescription = "desc",
-                BatchNumber = "1",
+                OrderNumber = "ORD-1",
                 Notes = "notes",
-                Status = "status",
-                Summary = "summary"
+                Status = "status"
             };
-            _dbContext.Batches.Add(batch);
+            _dbContext.Orders.Add(order);
             _dbContext.SaveChanges();
-            _batchServiceMock.Setup(x => x.GetBatchByIdAsync(id)).ReturnsAsync(batch);
+            _orderServiceMock.Setup(x => x.GetOrderByIdAsync(id)).ReturnsAsync(order);
             var result = await _controller.Details(id) as ViewResult;
             Assert.NotNull(result);
             Assert.True(string.IsNullOrEmpty(result.ViewName) || result.ViewName == "Details");
-            Assert.Equal(batch, result.Model);
+            Assert.Equal(order, result.Model);
         }
 
         [Fact]
@@ -99,34 +79,31 @@ namespace KooliProjekt.UnitTests.ControllerTests
         }
 
         [Fact]
-        public async Task Edit_should_return_notfound_when_batch_is_missing()
+        public async Task Edit_should_return_notfound_when_order_is_missing()
         {
             int id = 1;
-            _batchServiceMock.Setup(x => x.GetBatchByIdAsync(id)).ReturnsAsync((Batch)null);
+            _orderServiceMock.Setup(x => x.GetOrderByIdAsync(id)).ReturnsAsync((Order)null);
             var result = await _controller.Edit(id) as NotFoundResult;
             Assert.NotNull(result);
         }
 
         [Fact]
-        public async Task Edit_should_return_view_with_model_when_batch_found()
+        public async Task Edit_should_return_view_with_model_when_order_found()
         {
             int id = 1;
-            var batch = new Batch {
+            var order = new Order {
                 Id = id,
-                BatchCode = "B1",
-                BatchDescription = "desc",
-                BatchNumber = "1",
+                OrderNumber = "ORD-1",
                 Notes = "notes",
-                Status = "status",
-                Summary = "summary"
+                Status = "status"
             };
-            _dbContext.Batches.Add(batch);
+            _dbContext.Orders.Add(order);
             _dbContext.SaveChanges();
-            _batchServiceMock.Setup(x => x.GetBatchByIdAsync(id)).ReturnsAsync(batch);
+            _orderServiceMock.Setup(x => x.GetOrderByIdAsync(id)).ReturnsAsync(order);
             var result = await _controller.Edit(id) as ViewResult;
             Assert.NotNull(result);
             Assert.True(string.IsNullOrEmpty(result.ViewName) || result.ViewName == "Edit");
-            Assert.Equal(batch, result.Model);
+            Assert.Equal(order, result.Model);
         }
 
         [Fact]
@@ -138,34 +115,31 @@ namespace KooliProjekt.UnitTests.ControllerTests
         }
 
         [Fact]
-        public async Task Delete_should_return_notfound_when_batch_is_missing()
+        public async Task Delete_should_return_notfound_when_order_is_missing()
         {
             int id = 1;
-            _batchServiceMock.Setup(x => x.GetBatchByIdAsync(id)).ReturnsAsync((Batch)null);
+            _orderServiceMock.Setup(x => x.GetOrderByIdAsync(id)).ReturnsAsync((Order)null);
             var result = await _controller.Delete(id) as NotFoundResult;
             Assert.NotNull(result);
         }
 
         [Fact]
-        public async Task Delete_should_return_view_with_model_when_batch_found()
+        public async Task Delete_should_return_view_with_model_when_order_found()
         {
             int id = 1;
-            var batch = new Batch {
+            var order = new Order {
                 Id = id,
-                BatchCode = "B1",
-                BatchDescription = "desc",
-                BatchNumber = "1",
+                OrderNumber = "ORD-1",
                 Notes = "notes",
-                Status = "status",
-                Summary = "summary"
+                Status = "status"
             };
-            _dbContext.Batches.Add(batch);
+            _dbContext.Orders.Add(order);
             _dbContext.SaveChanges();
-            _batchServiceMock.Setup(x => x.GetBatchByIdAsync(id)).ReturnsAsync(batch);
+            _orderServiceMock.Setup(x => x.GetOrderByIdAsync(id)).ReturnsAsync(order);
             var result = await _controller.Delete(id) as ViewResult;
             Assert.NotNull(result);
             Assert.True(string.IsNullOrEmpty(result.ViewName) || result.ViewName == "Delete");
-            Assert.Equal(batch, result.Model);
+            Assert.Equal(order, result.Model);
         }
     }
 } 
