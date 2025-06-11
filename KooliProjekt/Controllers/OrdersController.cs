@@ -61,7 +61,6 @@ namespace KooliProjekt.Controllers
 
         // POST: Orders/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("OrderNumber,CustomerId,OrderDate,TotalAmount,Status,Notes")] Order order)
         {
             if (ModelState.IsValid)
@@ -92,7 +91,6 @@ namespace KooliProjekt.Controllers
 
         // POST: Orders/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,OrderNumber,CustomerId,OrderDate,TotalAmount,Status,Notes")] Order order)
         {
             if (id != order.Id)
