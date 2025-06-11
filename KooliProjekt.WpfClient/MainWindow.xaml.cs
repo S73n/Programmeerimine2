@@ -26,6 +26,7 @@ namespace KooliProjekt.WpfClient
         {
             InitializeComponent();
             _http.BaseAddress = new System.Uri("https://localhost:5001/"); // Muuda vastavalt oma API aadressile
+            DataContext = new MainWindowViewModel();
             LoadCustomers();
         }
 
