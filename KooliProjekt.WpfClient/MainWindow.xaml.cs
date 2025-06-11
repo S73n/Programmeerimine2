@@ -26,7 +26,9 @@ namespace KooliProjekt.WpfClient
         {
             InitializeComponent();
             _http.BaseAddress = new System.Uri("https://localhost:5001/"); // Muuda vastavalt oma API aadressile
-            DataContext = new MainWindowViewModel();
+            var vm = new MainWindowViewModel();
+            vm.OnError = msg => MessageBox.Show(msg, "Viga", MessageBoxButton.OK, MessageBoxImage.Error);
+            DataContext = vm;
             LoadCustomers();
         }
 
