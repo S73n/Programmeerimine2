@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.11" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
 	<PackageReference Include="Microsoft.CodeCoverage" Version="16.8.3" />
     <PackageReference Include="xunit" Version="2.4.2" />
@@ -34,6 +34,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KooliProjekt\KooliProjekt.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ServiceTests\" />
   </ItemGroup>
 
 </Project>
