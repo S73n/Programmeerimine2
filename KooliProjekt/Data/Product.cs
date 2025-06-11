@@ -18,8 +18,8 @@ namespace KooliProjekt.Data
         public decimal Price { get; set; }
 
         [Required]
-        public ProductCategory Category { get; set; }
         public int CategoryId { get; set; }
+        public ProductCategory Category { get; set; }
 
         public int StockQuantity { get; set; }
 

@@ -25,7 +25,7 @@ namespace KooliProjekt.IntegrationTests.Helpers
             var dbGuid = Guid.NewGuid().ToString();
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("TestConnection"));
+                options.UseInMemoryDatabase($"TestDb_{dbGuid}");
             });
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -35,7 +35,22 @@ namespace KooliProjekt.IntegrationTests.Helpers
             services.AddControllersWithViews()
                     .AddApplicationPart(typeof(HomeController).Assembly);
 
-            //services.AddScoped<IFileClient, LocalFileClient>();
+            // Register all services needed by controllers
+            services.AddScoped<KooliProjekt.Service.IProductService, KooliProjekt.Service.ProductService>();
+            services.AddScoped<KooliProjekt.Service.IOrderService, KooliProjekt.Service.OrderService>();
+            services.AddScoped<KooliProjekt.Service.IInvoiceService, KooliProjekt.Service.InvoiceService>();
+            services.AddScoped<KooliProjekt.Service.IIngredientService, KooliProjekt.Service.IngredientService>();
+            services.AddScoped<KooliProjekt.Service.ICustomerService, KooliProjekt.Service.CustomerService>();
+            services.AddScoped<KooliProjekt.Service.IProductCategoryService, KooliProjekt.Service.ProductCategoryService>();
+            services.AddScoped<KooliProjekt.Service.IBatchService, KooliProjekt.Service.BatchService>();
+            services.AddScoped<KooliProjekt.Service.IBeerService, KooliProjekt.Service.BeerService>();
+            services.AddScoped<KooliProjekt.Service.IInvoiceLineService, KooliProjekt.Service.InvoiceLineService>();
+            services.AddScoped<KooliProjekt.Service.IUserService, KooliProjekt.Service.UserService>();
+            services.AddScoped<KooliProjekt.Service.IUserRoleService, KooliProjekt.Service.UserRoleService>();
+            services.AddScoped<KooliProjekt.Service.ICommentService, KooliProjekt.Service.CommentService>();
+            services.AddScoped<KooliProjekt.Service.ILogEntryService, KooliProjekt.Service.LogEntryService>();
+            services.AddScoped<KooliProjekt.Service.IPhotoService, KooliProjekt.Service.PhotoService>();
+            services.AddScoped<KooliProjekt.Service.ITastingLogService, KooliProjekt.Service.TastingLogService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -52,23 +67,6 @@ namespace KooliProjekt.IntegrationTests.Helpers
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}/{pathStr?}");
             });
-
-            var serviceScopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
-            using (var serviceScope = serviceScopeFactory.CreateScope())
-            {
-                var dbContext = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
-                if (dbContext == null)
-                {
-                    throw new NullReferenceException("Cannot get instance of dbContext");
-                }
-
-                if (dbContext.Database.GetDbConnection().ConnectionString.ToLower().Contains("my.db"))
-                {
-                    throw new Exception("LIVE SETTINGS IN TESTS!");
-                }
-
-                //EnsureDatabase(dbContext);
-            }
         }
 
         //private void EnsureDatabase(ApplicationDbContext dbContext)
